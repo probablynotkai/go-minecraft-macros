@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/go-vgo/robotgo"
-	shop "github.com/probablynotkai/api"
+	api "github.com/probablynotkai/api"
 )
 
 // TOTAL PRESTIGE: 98 coins
@@ -20,22 +20,58 @@ func (p *PickleMines) buyItem(itemArr [2]int, targetAmount int) {
 	}
 }
 
+func (p *PickleMines) registerActions(c chan error) {
+	createConditionalMacro("b", func() {
+		pickleMineMacros.buyStage1()
+	})
+
+	createConditionalMacro("n", func() {
+		pickleMineMacros.buyStage2()
+	})
+
+	createConditionalMacro("u", func() {
+		pickleMineMacros.doUpgrades(1)
+	})
+
+	createConditionalMacro("i", func() {
+		pickleMineMacros.doUpgrades(2)
+	})
+
+	createMacro("/", func() {
+		Typing = true
+	})
+
+	createMacro("enter", func() {
+		if Typing {
+			Typing = false
+		}
+	})
+
+	createMacro("esc", func() {
+		if Typing {
+			Typing = false
+		}
+	})
+
+	c <- nil
+}
+
 func (p *PickleMines) buyStage1() {
-	p.buyItem(shop.COBBLE, 160)
-	p.buyItem(shop.COAL, 160)
-	p.buyItem(shop.QUARTZ, 160)
-	p.buyItem(shop.IRON, 160)
-	p.buyItem(shop.GOLD, 160)
-	p.buyItem(shop.LAPIS, 160)
-	p.buyItem(shop.REDSTONE, 160)
-	p.buyItem(shop.EMERALD, 160)
+	p.buyItem(api.COBBLE, 160)
+	p.buyItem(api.COAL, 160)
+	p.buyItem(api.QUARTZ, 160)
+	p.buyItem(api.IRON, 160)
+	p.buyItem(api.GOLD, 160)
+	p.buyItem(api.LAPIS, 160)
+	p.buyItem(api.REDSTONE, 160)
+	p.buyItem(api.EMERALD, 160)
 	robotgo.KeyPress("esc")
 }
 
 func (p *PickleMines) buyStage2() {
-	p.buyItem(shop.DIAMOND, 160)
-	p.buyItem(shop.SCRAPS, 160)
-	p.buyItem(shop.OBSIDIAN, 64)
+	p.buyItem(api.DIAMOND, 160)
+	p.buyItem(api.SCRAPS, 160)
+	p.buyItem(api.OBSIDIAN, 64)
 	robotgo.KeyPress("esc")
 }
 

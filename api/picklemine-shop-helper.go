@@ -1,4 +1,4 @@
-package shop
+package api
 
 var (
 	COBBLE   [2]int = [2]int{32, 10}
