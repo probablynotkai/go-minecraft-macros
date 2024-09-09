@@ -18,11 +18,13 @@ const (
 var (
 	Typing     bool = false
 	AutoTyping bool = false
+	ThreeRow   helpers.Inventory
+	FiveRow    helpers.Inventory
 )
 
 func main() {
-	helpers.RegisterSmallInventoryLocations()
-	helpers.RegisterLargeInventoryLocations()
+	ThreeRow = helpers.GetLocationsForSizedInventory(3)
+	FiveRow = helpers.GetLocationsForSizedInventory(5)
 
 	startListener()
 }
@@ -83,7 +85,7 @@ func leftClickSlot() {
 func buyItem(itemArr [2]int, targetAmount int) {
 	itemReturn, itemSlot := itemArr[0], itemArr[1]
 
-	goToSlot(helpers.LargeLocations[itemSlot])
+	goToSlot(FiveRow.MappedLocations[itemSlot])
 
 	for i := targetAmount; i > 0; i -= itemReturn {
 		robotgo.MouseSleep = Delay
@@ -115,14 +117,14 @@ func buyStage2() {
 func doUpgrades(stage int) {
 	if stage == 1 {
 		for i := 0; i < 31; i++ {
-			goToSlot(helpers.SmallLocations[10])
+			goToSlot(ThreeRow.MappedLocations[10])
 			robotgo.MouseSleep = MinimalDelay
 			leftClickSlot()
 			robotgo.MouseSleep = Delay
 		}
 	} else if stage == 2 {
 		for i := 0; i < 9; i++ {
-			goToSlot(helpers.SmallLocations[10])
+			goToSlot(ThreeRow.MappedLocations[10])
 			robotgo.MouseSleep = MinimalDelay
 			leftClickSlot()
 			robotgo.MouseSleep = Delay
