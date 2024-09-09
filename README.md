@@ -1,1 +1,1 @@
-"# Golang Minecraft Macros" 
+# Golang Minecraft Macros
