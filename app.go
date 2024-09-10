@@ -10,8 +10,8 @@ var (
 )
 
 func main() {
-	ThreeRow = helpers.GetLocationsForSizedInventory(3)
-	FiveRow = helpers.GetLocationsForSizedInventory(5)
+	ThreeRow = *helpers.GetLocationsForSizedInventory(3)
+	FiveRow = *helpers.GetLocationsForSizedInventory(5)
 
 	startListener()
 }

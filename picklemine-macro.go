@@ -8,18 +8,6 @@ import (
 // TOTAL PRESTIGE: 98 coins
 type PickleMines struct{}
 
-func (p *PickleMines) buyItem(itemArr [2]int, targetAmount int) {
-	itemReturn, itemSlot := itemArr[0], itemArr[1]
-
-	goToSlot(FiveRow.MappedLocations[itemSlot])
-
-	for i := targetAmount; i > 0; i -= itemReturn {
-		robotgo.MouseSleep = Delay
-		leftClick()
-		robotgo.MouseSleep = Delay
-	}
-}
-
 func (p *PickleMines) registerActions(c chan error) {
 	createConditionalMacro("b", func() {
 		pickleMineMacros.buyStage1()
@@ -54,6 +42,19 @@ func (p *PickleMines) registerActions(c chan error) {
 	})
 
 	c <- nil
+}
+
+func (p *PickleMines) buyItem(itemArr [2]int, targetAmount int) {
+	itemReturn, itemSlot := itemArr[0], itemArr[1]
+
+	goToSlot(FiveRow.MappedLocations[itemSlot])
+	robotgo.MouseSleep = Delay
+
+	for i := targetAmount; i > 0; i -= itemReturn {
+		robotgo.MouseSleep = Delay
+		leftClick()
+		robotgo.MouseSleep = Delay
+	}
 }
 
 func (p *PickleMines) buyStage1() {

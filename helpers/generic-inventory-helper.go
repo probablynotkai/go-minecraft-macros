@@ -1,13 +1,33 @@
 package helpers
 
-import "fmt"
+import (
+	"fmt"
+)
+
+// figure out how to calculate this dynamically
+const (
+	threeRowStartY = 340
+	fiveRowStartY  = 290
+)
 
 type Inventory struct {
 	MappedLocations map[int][2]int
 }
 
-func GetLocationsForSizedInventory(rows int) Inventory {
-	minX, maxX, minY := 2650, 3100, 340
+func GetLocationsForSizedInventory(rows int) *Inventory {
+	minX, maxX := 2650, 3100
+
+	minY := -1
+	switch rows {
+	case 3:
+		minY = threeRowStartY
+	case 5:
+		minY = fiveRowStartY
+	}
+
+	if minY == -1 {
+		return nil
+	}
 
 	fmt.Printf("Registering locations for %d row inventory.\n", rows)
 
@@ -25,5 +45,5 @@ func GetLocationsForSizedInventory(rows int) Inventory {
 
 	fmt.Printf("Registered %d rows for inventory.\n", rows)
 
-	return Inventory{locations}
+	return &Inventory{locations}
 }
