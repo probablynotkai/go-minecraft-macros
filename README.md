@@ -1,3 +1,3 @@
 # Golang Minecraft Macros
-For the time being, this works on a 2nd 1920x1080 monitor.
+## This only works on the 2nd monitor in a 1920x1080 setup.
 Wider compatability will be added further down the line.
